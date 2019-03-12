@@ -6,12 +6,12 @@
 
 
 ### 开始
-1.鼠标右键直接run
+1.鼠标右键直接run  
 ![](src/img/run.png)
 
 
 ### 爬取csdn
-1. 先运行getIp.py 获取一定量的代理ip并存入数据库
+1. 先运行getIp.py 获取一定量的代理ip并存入数据库  
 ![](src/img/csdn-ip.png)
 
 2. 再打开csdn-test.py
