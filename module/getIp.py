@@ -22,7 +22,10 @@ emp = db.employees  # employees集合名
 
 # 写入文档
 def write(path,text):
-    emp.insert_one({'ip': text})
+    emp.insert_one({
+        'ip': text,
+        'create_date':datetime.datetime.now()
+    })
 
 # 清空文档
 def truncatefile(path):
@@ -139,3 +142,13 @@ if __name__ == '__main__':
     path = 'ip.txt' # 存放爬取ip的文档path
     targeturl = 'http://www.cnblogs.com/TurboWay/' # 验证ip有效性的指定url
     getip(targeturl,path)
+
+
+
+class getIp:
+    def init(self):
+        path = 'ip.txt'  # 存放爬取ip的文档path
+        targeturl = 'http://www.cnblogs.com/TurboWay/'  # 验证ip有效性的指定url
+        getip(targeturl, path)
+
+getAgentIp = getIp().init;
