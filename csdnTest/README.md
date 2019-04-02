@@ -1,29 +1,73 @@
-# python-spider
+### 技术栈：  
+* ui框架：element-ui框架
 
-### 目录结构
-* **__iniit__.py** 引入的文件
-* **csdn-test.py** 获取‘我’在csdn的博文资料
+* 前端框架：vue-cli
 
-* ./module** 模块文件
+* 后端框架：koa
 
+* 前、后语言：javascript
 
-#### 一.开始
-1.鼠标右键直接run  
-![](../src/img/run.png)
+* 爬虫语言：python
 
 
-#### 二.爬取csdn
 
-1. 打开csdn-test.py
+### 爬虫代码(定时执行)  
+https://github.com/guosimin/python-spider/tree/master/csdnTest/csdn-test.py
 
-2. 修改博文地址为自己的地址
-![](../src/img/csdn-change-link.png)
+1.创建基本任务  
+![](https://img-blog.csdnimg.cn/20190402145210482.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
 
-3. 运行csdn-test.py
-
-3. 程序会先爬取一定量的代理ip并存入数据库，再执行爬取内容的操作，若遇到博文内容为空，则另外再爬取博文
-![](../src/img/csdn-ip.png)
+2.命名  
+![](https://img-blog.csdnimg.cn/20190402145323316.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
 
 
-#### 三.效果如下：
-![](../src/img/csdn-save.png)
+3.定义执行时间   
+![](https://img-blog.csdnimg.cn/20190402145404548.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+![](https://img-blog.csdnimg.cn/20190402145424196.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+![](https://img-blog.csdnimg.cn/20190402145441390.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+
+4.先看看我们的python装在哪个目录了   
+![](https://img-blog.csdnimg.cn/20190402145714922.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+
+5.然后按下图填写   
+![](https://img-blog.csdnimg.cn/20190402150322174.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+
+6.* **这也是最需要注意的**（在pyCharm执行成功的，在定时任务中却不一定成功，原因是python程序中使用 import XXX 时，python解析器会在当前目录、已安装和第三方模块中搜索 xxx，如果都搜索不到就会报错。我的项目引用了../model里面的模块，所以此时我需要用sys.path.append临时添加搜索路径，方便更简洁的import其他包和模块）   
+
+```python
+import sys
+sys.path.append(r'E:\projects\python-spider')
+```
+7.执行(可以点击运行，如果结果为0*1则代码执行失败，如果为0*0则代码执行成功)  
+
+![](https://img-blog.csdnimg.cn/20190402151156153.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+
+### 前后端代码（需要可视化的视图的时启动）   
+
+https://github.com/guosimin/data-management 
+
+1.下载代码，并启动并构建前端项目     
+```
+# install dependencies
+
+npm install
+
+# serve with hot reload at localhost:8080
+
+npm run dev
+```
+2.启用后端   
+
+```
+node app.js
+```
+3.启动完成后访问：http://localhost:8081/#/charts   
+
+### 可视化的视图展示效果：   
+![](https://img-blog.csdnimg.cn/20190402144205489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)

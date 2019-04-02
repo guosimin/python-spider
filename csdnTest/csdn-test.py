@@ -1,3 +1,5 @@
+import sys
+sys.path.append(r'E:\projects\python-spider')
 from csdnTest import *
 
 #1.链接本地数据库服务
