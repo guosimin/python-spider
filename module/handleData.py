@@ -22,7 +22,7 @@ class handleData:
                 return ''
 
     def needGetContentLinks(self,aggregate):
-        txt = aggregate.find({'$or':[{'content': ''}, {'content': 'None'}]})
+        txt = aggregate.find({'$or':[{'content': {"$exists": False}}, {'content': 'None'}]})
         list = [];
         for each in txt:
             if each['link'] != '':
