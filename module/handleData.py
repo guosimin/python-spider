@@ -87,8 +87,8 @@ class handleData:
                     'spider_date':obj['last_spider_date'],
                 },
                 {'$set': {
-                    'read_num':obj['read_num'],
-                    'comment_num':obj['comment_num']
+                    'read_num':int(obj['read_num']),
+                    'comment_num':int(obj['comment_num'])
                 }},
                 upsert=True
             )

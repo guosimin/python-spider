@@ -59,7 +59,7 @@ def findDetail(link,index):
         else:
             index = index+1 if index==1 else 1
             time.sleep(5)
-            logger.info("url:"+url+"进行第"+index+"次尝试")
+            logger.info("url:"+url+"进行第"+str(index)+"次尝试")
             findDetail(link ,index)
 
     try:
@@ -75,9 +75,8 @@ def findDetail(link,index):
         logger.error("【error】" + url+'读取数据失败')
 
 
-def findTitle(pagenum,retryNum = 0): # ip类型,页码,目标url,存放ip的路径
-    userName = handleData.getUser(users)
-    url=str("https://blog.csdn.net/"+userName[0]+"/article/list/")+str(pagenum) # 配置url
+def findTitle(pagenum,userName,retryNum = 0): # ip类型,页码,目标url,存放ip的路径
+    url=str("https://blog.csdn.net/"+userName+"/article/list/")+str(pagenum) # 配置url
     headers = getHeader() # 定制请求头
     # 获取代理ip
     ip = handleData.getIp(emp)
@@ -98,7 +97,7 @@ def findTitle(pagenum,retryNum = 0): # ip类型,页码,目标url,存放ip的路�
         # 删除失效ip
         handleData.delete(emp,{'ip': ip})
         # 重新从数据库去除ip执行
-        findTitle(pagenum)
+        findTitle(pagenum,userName)
         return False
 
     try:
@@ -140,7 +139,7 @@ def findTitle(pagenum,retryNum = 0): # ip类型,页码,目标url,存放ip的路�
                         'link': a['href'],
                         'create_time': create_time,
                         'last_spider_date': str(spider_date),
-                        'user_name': userName[0],
+                        'user_name': userName,
                         'page_id': pageId,
                         'read_num': read_num[0].text,
                         'comment_num': read_num[1].text,
@@ -149,12 +148,12 @@ def findTitle(pagenum,retryNum = 0): # ip类型,页码,目标url,存放ip的路�
                 except:
                     logger.info("写入失败")
         if (index > 0):
-            findTitle(pagenum + 1)
+            findTitle(pagenum + 1,userName)
         else:
             # 重新尝试，确认是否最后一页
             if(retryNum==0):
                 time.sleep(2)
-                findTitle(pagenum,1)
+                findTitle(pagenum,userName,1)
             else:
                 logger.info("最后一页是：" + str(pagenum - 1))
             return False
@@ -164,11 +163,24 @@ def findTitle(pagenum,retryNum = 0): # ip类型,页码,目标url,存放ip的路�
 
 def getip():
     start = datetime.datetime.now()  # 开始时间
-    threads = []
     # 先开始1条线程来爬取
-    t = threading.Thread(target=findTitle, args=(1,))
-    t.start()
-    t.join()
+    # t = threading.Thread(target=findTitle, args=(1,))
+    # t.start()
+    # t.join()
+    all = 0
+    allUsers = handleData.getUser(users)
+    while all< len(allUsers):
+        threads = []
+        for num in range(10):
+            if all+num<len(allUsers):
+                t = threading.Thread(target=findTitle, args=(1,allUsers[all+num],))
+                threads.append(t)
+        for s in threads:  # 开启多线程爬取
+            s.start()
+        for e in threads:  # 等待所有线程结束
+            e.join()
+        all = all +5
+
 
     # 爬取文章内容（如果内容为空或者None才爬取）
     links = handleData.needGetContentLinks(page);
@@ -178,6 +190,7 @@ def getip():
     end = datetime.datetime.now()  # 结束时间
     diff = gettimediff(start, end)  # 计算耗时
     logger.info('一共耗时: %s \n' % (diff))
+
 
 
 

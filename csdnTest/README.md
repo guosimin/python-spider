@@ -71,3 +71,11 @@ node app.js
 
 ### 可视化的视图展示效果：   
 ![](https://img-blog.csdnimg.cn/20190402144205489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+
+### last UPdate          
+* 20190417       
+1.读取csdn_user表用户，来进行爬取     
+2.调整爬取的并发数量     
+3.新增获取一定数量用户的方法getUser.py,需要直接run执行，**建议限制爬取数量**,否则时间可能太长。
+该方法获通过调用csdn的接口获取数据，但是当超过一定数量后，获取的数据则是重复的随机。有兴趣的注意观察
