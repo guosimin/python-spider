@@ -9,6 +9,31 @@
 
 * 爬虫语言：python
 
+### 前后端代码（需要可视化的视图的时启动）   
+
+https://github.com/guosimin/data-management 
+
+1.下载代码，并启动并构建前端项目     
+```
+# install dependencies
+
+npm install
+
+# serve with hot reload at localhost:8080
+
+npm run dev
+```
+2.打开另外一个命令行窗口，启用后端服务   
+
+```
+node app.js
+```
+3.启动完成后访问：http://localhost:8081/#/charts   
+
+### 可视化的视图展示效果：   
+![](https://img-blog.csdnimg.cn/20190402144205489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
+
+
 
 
 ### 爬虫代码(定时执行)  
@@ -47,30 +72,6 @@ sys.path.append(r'E:\projects\python-spider')
 
 ![](https://img-blog.csdnimg.cn/20190402151156153.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
 
-
-### 前后端代码（需要可视化的视图的时启动）   
-
-https://github.com/guosimin/data-management 
-
-1.下载代码，并启动并构建前端项目     
-```
-# install dependencies
-
-npm install
-
-# serve with hot reload at localhost:8080
-
-npm run dev
-```
-2.启用后端   
-
-```
-node app.js
-```
-3.启动完成后访问：http://localhost:8081/#/charts   
-
-### 可视化的视图展示效果：   
-![](https://img-blog.csdnimg.cn/20190402144205489.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2dpdGh1Yl8zOTU3MDcxNw==,size_16,color_FFFFFF,t_70)
 
 
 ### last UPdate          
