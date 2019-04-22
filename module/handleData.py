@@ -48,10 +48,12 @@ class handleData:
             aggregate.update(
                 {
                      "user_name":obj['user_name'],
+                     "type": 1,
                 },
                 {'$set': {
                     "user_url": obj['user_url'],
-                    "avatar": obj['avatar']
+                    "avatar": obj['avatar'],
+                    "status":0
                 }},
                 upsert=True
             )
@@ -110,7 +112,8 @@ class handleData:
     def getUser(self,aggreate):
         list = [];
         try:
-            txt = aggreate.find({})
+            # 爬取状态为启用的
+            txt = aggreate.find({'status':1})
             for each in txt:
                 if each['user_name'] != '':
                     list.append(each['user_name'])

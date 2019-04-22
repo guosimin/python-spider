@@ -68,6 +68,9 @@ def start():
         shownOffset = str(content['shown-offset'])
 
     except:
+        print('失败了,删除ip' + ip)
+        # 删除失效ip
+        handleData.delete(emp, {'ip': ip})
         start()
         return False
     getData(proxies, shownOffset)

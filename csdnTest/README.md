@@ -75,6 +75,10 @@ sys.path.append(r'E:\projects\python-spider')
 
 
 ### last UPdate          
+* 20190422       
+1.getUser.py获取用户新增部分参数
+2.新增爬取规则，status状态为1才爬取
+
 * 20190417       
 1.读取csdn_user表用户，来进行爬取     
 2.调整爬取的并发数量     
