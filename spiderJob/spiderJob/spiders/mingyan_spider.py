@@ -1,9 +1,10 @@
+import sys
+sys.path.append(r'E:\projects\python-spider')
 import scrapy
-
+from  scrapy.loader import ItemLoader
+from spiderJob.items import SpiderjobItem
 def getUrl():
     return 'https://search.51job.com/list/030200,000000,0000,00,9,99,%2520,2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
-
-
 
 class itemSpider(scrapy.Spider):
     name = 'argsSpider'
@@ -17,31 +18,34 @@ class itemSpider(scrapy.Spider):
 
     def parse(self, response):
         mingyan = response.css('div#resultList>.el')  # 提取首页所有名言，保存至变量mingyan
-        for v in mingyan:  # 循环获取每一条名言里面的：名言内容、作者、标签
-            t1 = v.css('.t1 a::text').extract_first()
-            t2 = v.css('.t2 a::attr(title)').extract_first()  # 提取名言
-            t3 = v.css('.t3::text').extract_first()
-            t4 = v.css('.t4::text').extract_first()
+        for index ,v in enumerate(mingyan):  # 循环获取每一条名言里面的：名言内容、作者、标签
+            # t1 = v.css('.t1 a::text').extract_first()
+            # t2 = v.css('.t2 a::attr(title)').extract_first()  # 提取名言
+            # t3 = v.css('.t3::text').extract_first()
+            # t4 = v.css('.t4::text').extract_first()
+            if(index > 0):
+                load = ItemLoader(item= SpiderjobItem(), selector=v)
+                load.add_css("t1", ".t1 a::text")
+                load.add_css("t2", ".t2 a::attr(title)")
+                load.add_css("t3", ".t3::text")
+                load.add_css("t4", ".t4::text")
+                item =  load.load_item()
 
-            t1 = str(t1).replace(' ', '')
-            t1 = str(t1).replace('\r|\n|\\s', '')
-            t2 = str(t2).replace(' ', '')
-            t3 = str(t3).replace(' ', '')
-            t4 = str(t4).replace(' ', '')
+                yield item;
 
-            item = {
-                't1': t1,
-                't2': t2,
-                't3': t3,
-                't4': t4,
-            }
-            yield item
+            # item = {
+            #     't1': str(t1).replace(' ', ''),
+            #     't2': str(t2).replace(' ', ''),
+            #     't3': str(t3).replace(' ', ''),
+            #     't4': str(t4).replace(' ', ''),
+            # }
+            # yield item
 
 
 
-        #
+
         # next_page = response.css('div.p_in li').extract_first()
         # if next_page is not None:
         #     next_page = response.urljoin(next_page)
         #     print("next_page+++++++++++"+next_page)
-            # yield scrapy.Request(next_page, callback=self.parse)
+        #     yield scrapy.Request(next_page, callback=self.parse)
