@@ -5,16 +5,17 @@ from  scrapy.loader import ItemLoader
 from spiderJob.items import SpiderjobItem
 # 获取头部
 from module.getHeader import getHeader
-def getUrl():
-    return 'https://search.51job.com/list/030200,000000,0000,00,9,99,%2520,2,1.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
+import time
 
-
+def getUrl(object):
+    return 'https://search.51job.com/list/030200,000000,0000,00,9,99,%2520,2,'+str(object['pageIndex'])+'.html?lang=c&stype=&postchannel=0000&workyear=99&cotype=99&degreefrom=99&jobterm=99&companysize=99&providesalary=99&lonlat=0%2C0&radius=-1&ord_field=0&confirmdate=9&fromType=&dibiaoid=0&address=&line=&specialarea=00&from=&welfare='
 
 
 class itemSpider(scrapy.Spider):
     name = 'argsSpider'
     def start_requests(self):
-        url = getUrl()
+        self.curr_page = 1
+        url = getUrl({"pageIndex":self.curr_page})
         # request_cookies =
         tag = getattr(self, 'tag', None)  # 获取tag值，也就是爬取时传过来的参数
         header = getHeader()
@@ -42,9 +43,14 @@ class itemSpider(scrapy.Spider):
 
                 yield item;
 
+            # next_page = response.css('div.p_in li').extract_first()
+            # if next_page is not None:
+            #     next_page = response.urljoin(next_page)
+            #     print("next_page+++++++++++"+next_page)
+            #     yield scrapy.Request(next_page, callback=self.parse)
 
-        # next_page = response.css('div.p_in li').extract_first()
-        # if next_page is not None:
-        #     next_page = response.urljoin(next_page)
-        #     print("next_page+++++++++++"+next_page)
-        #     yield scrapy.Request(next_page, callback=self.parse)
+        self.curr_page = self.curr_page + 1
+        time.sleep(4)
+        if(self.curr_page<7):
+            url = getUrl({"pageIndex": self.curr_page})
+            yield scrapy.Request(url, callback=self.parse)
