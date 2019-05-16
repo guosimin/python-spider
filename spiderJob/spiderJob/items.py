@@ -55,14 +55,28 @@ def cutSpace(value):
 
 
 class SpiderjobItem(scrapy.Item):
+    id = scrapy.Field(
+        input_processor=MapComposeCustom(cutSpace),
+        output_processor=Join()
+    )  # 标题
     t1 = scrapy.Field(
         input_processor=MapComposeCustom(cutSpace),
         output_processor=Join()
     )  # 标题
+    positionLink = scrapy.Field(
+        input_processor=MapComposeCustom(cutSpace),
+        output_processor=Join()
+    )
     t2 = scrapy.Field(
         input_processor = MapComposeCustom(cutSpace),
         output_processor = Join()
     )  # 标题
+
+    companyLink = scrapy.Field(
+        input_processor=MapComposeCustom(cutSpace),
+        output_processor=Join()
+    )
+    # 标题
     t3 = scrapy.Field(
         input_processor = MapComposeCustom(cutSpace),
         output_processor = Join()

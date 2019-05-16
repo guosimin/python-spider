@@ -66,8 +66,9 @@ ROBOTSTXT_OBEY = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    # 'spiderJob.pipelines.SpiderjobPipeline': 300,
-   'spiderJob.pipelines.SpiderjobPipeline': 400,
-   'spiderJob.pipelines.SpiderjobPipeline2':100,
+   # 'spiderJob.pipelines.SpiderjobPipeline': 400,
+   # 'spiderJob.pipelines.SpiderjobPipeline2':100,
+   'spiderJob.pipelines.Save':100
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

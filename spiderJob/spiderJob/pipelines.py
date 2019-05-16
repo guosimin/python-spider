@@ -5,7 +5,17 @@
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 
+# 用于数据库存储
+import pymongo
+from pymongo import MongoClient
+#1.链接本地数据库服务
+name = MongoClient('localhost')
+#2.链接本地数据库 demo 没有会创建
+db = name.demo   #demo数据库名
+# 3.创建，连接集合
+job = db.gsm_job  # gsm_job集合
 
+#保存为txt
 class SpiderjobPipeline(object):
     # 可选实现，做参数初始化等
     def __init__(self):
@@ -29,19 +39,22 @@ class SpiderjobPipeline(object):
         return item
 
 
-class SpiderjobPipeline2(object):
+#保存数据到数据库
+class Save(object):
     def process_item(self, item, spider):
-        return {
-            't1': '岗位:'+item['t1'],
-            't2': '公司:'+item['t2'],
-            't3': '地区:'+item['t3'],
-            't4': '薪资:'+item['t4'],
-        }
+        job.update(
+            {
+                'id': item['id'],
+            },
+            {'$set': {
+                'position_link': item['positionLink'],
+                'company_link':item['companyLink'],
+                'position': item['t1'],
+                'company': item['t2'],
+                'region': item['t3'],
+                'salary': item['t4']
+            }},
+            upsert=True
+        )
+        return item
 
-    # spider (Spider 对象) – 被开启的spider
-    # 可选实现，当spider被开启时，这个方法被调用。
-    # def open_spider(self, spider):
-
-    # spider (Spider 对象) – 被关闭的spider
-    # 可选实现，当spider被关闭时，这个方法被调用
-    # def close_spider(self, spider):
