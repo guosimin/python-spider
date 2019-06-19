@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'E:\projects\python-spider')
+sys.path.append(r'D:\github\python\python-spider')
 import scrapy
 from  scrapy.loader import ItemLoader
 from spiderJob.items import SpiderjobItem

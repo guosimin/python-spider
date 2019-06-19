@@ -4,7 +4,7 @@
 """
 import sys
 import json
-sys.path.append(r'E:\projects\python-spider')
+sys.path.append(r'D:\github\python\python-spider')
 from csdnTest import *
 
 

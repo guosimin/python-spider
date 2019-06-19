@@ -9,6 +9,22 @@
 
 * 爬虫语言：python
 
+### 爬虫代码
+1.安装 requests ，bs4 ，pymongo，selenium，fake_useragent
+```
+pip install requests
+pip install Beautifulsoup4
+pip install pymongo
+pip install selenium
+pip install fake_useragent
+```
+
+2.先右键鼠标run执行getUser.py
+
+
+
+
+
 ### 前后端代码（需要可视化的视图的时启动）   
 
 https://github.com/guosimin/data-management 
@@ -66,7 +82,7 @@ https://github.com/guosimin/python-spider/tree/master/csdnTest/csdn-test.py
 
 ```python
 import sys
-sys.path.append(r'E:\projects\python-spider')
+sys.path.append(r'D:\github\python\python-spider')
 ```
 7.执行(可以点击运行，如果结果为0*1则代码执行失败，如果为0*0则代码执行成功)  
 

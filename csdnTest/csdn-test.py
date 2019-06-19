@@ -1,5 +1,5 @@
 import sys
-sys.path.append(r'E:\projects\python-spider')
+sys.path.append(r'D:\github\python\python-spider')
 from csdnTest import *
 
 #1.链接本地数据库服务
@@ -44,12 +44,28 @@ def findDetail(link,index):
     # 代理ip
     proxies = {"http": "http://" + ip, "https": "http://" + ip}
     # print("当前访问的url:" + url + ",访问的ip:" + ip);
-    logger.info("当前访问的url:" + url + ",访问的ip:" + ip)
+    logger.info("当前访问的是详情的url:" + url + ",访问的ip:" + ip)
     try:
         request = requests.get(url=url, proxies=proxies, headers=headers, timeout=4)
         if request.status_code != 200:
             logger.info("【!200】url:"+url)
+            handleData.writeDetail(page, {
+                'link': link,
+                'content': "此文章已被删除！"
+            })
             return False
+        else:
+            try:
+                text = request.text
+                soup = BeautifulSoup(text, 'lxml')
+                content = soup.find('div', class_='blog-content-box')
+                content = html.escape(str(content))
+                handleData.writeDetail(page, {
+                    'link': link,
+                    'content': content
+                })
+            except:
+                logger.error("【error】" + url + '读取数据失败')
     except:
         logger.info("【网络错误】url："+url+"访问失败，可以遇上验证了")
         if (index==5):
@@ -62,17 +78,7 @@ def findDetail(link,index):
             logger.info("url:"+url+"进行第"+str(index)+"次尝试")
             findDetail(link ,index)
 
-    try:
-        text = request.text
-        soup = BeautifulSoup(text, 'lxml')
-        content = soup.find('div', class_='blog-content-box')
-        content = html.escape(str(content))
-        handleData.writeDetail(page, {
-            'link': link,
-            'content': content
-        })
-    except:
-        logger.error("【error】" + url+'读取数据失败')
+
 
 
 def findTitle(pagenum,userName,retryNum = 0): # ip类型,页码,目标url,存放ip的路径
